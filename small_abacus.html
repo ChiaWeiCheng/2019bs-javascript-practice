@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>小算盤</title>
+</head>
+
+<body>
+    <div class="top-title">
+        <div class="container">
+            <h1>小算盤</h1>
+            <div class="input-group">
+                <input type="text" id="input" class="text-center col-12" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="ml-3 row numbtn abacus">
+        <div class="container">
+            <div>
+                <a type="button" id="Add" class="btn btn-outline-primary col-2 input-pad" href="#">+</a>
+                <a type="button" id="Sub" class="btn btn-outline-primary col-2 input-pad" href="#">-</a>
+                <a type="button" id="Mul" class="btn btn-outline-primary col-2 input-pad" href="#">*</a>
+                <a type="button" id="Div" class="btn btn-outline-primary col-2 input-pad" href="#">/</a>
+            </div>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">1</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">2</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">3</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">4</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">5</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">6</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">7</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">8</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">9</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">0</a>
+            <a type="button" class="btn btn-outline-primary col-3 input-pad" href="#">.</a>
+            <a id="reset" type="button" class="btn btn-outline-primary col-3 " onclick="clearInput()">清除</a>
+            <div class="col-12"><a class="btn btn-default btn-block btn-primary" href="#" role="button" id="equal">=</a>
+            </div>
+        </div>
+    </div>
+    <div id="result" class="container">
+        <h1 id="number" class="col-12 text-right">0</h1>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var Operator = "";
+        var temp = new Array();
+        function inputButton() {
+            var input = document.getElementById("input");
+            var text = this.innerHTML;
+            input.value += text;
+        }
+
+        var inputButtons = document.getElementsByClassName("btn");
+        for (var i = 0; i < inputButtons.length; i++) {
+            inputButtons[i].onclick = inputButton;
+        }
+        function clearInput() {
+            var input = document.getElementById("input");
+            input.value = "";
+        }
+
+        var clear = document.getElementById("reset");
+        clear.onclick = clearInput;
+        function Add() {
+            var input = document.getElementById("input");
+            var text = this.innerHTML;
+            input.value += text;
+            if (Operator != "+") {
+                Operator = "+";
+            }
+        }
+        var Add_btn = document.getElementById("Add");
+        Add_btn.onclick = Add;
+        function Sub() {
+            var input = document.getElementById("input");
+            var text = this.innerHTML;
+            input.value += text;
+            if (Operator != "-") {
+                Operator = "-";
+            }
+        }
+        var Sub_btn = document.getElementById("Sub");
+        Sub_btn.onclick = Sub;
+
+        function Mul() {
+            var input = document.getElementById("input");
+            var text = this.innerHTML;
+            input.value += text;
+            if (Operator != "*") {
+                Operator = "*";
+            }
+
+        }
+        var Mul_btn = document.getElementById("Mul");
+        Mul_btn.onclick = Mul;
+
+        function Div() {
+            var input = document.getElementById("input");
+            var text = this.innerHTML;
+            input.value += text;
+            if (Operator != "/") {
+                Operator = "/";
+            }
+        }
+        var Div_btn = document.getElementById("Div");
+        Div_btn.onclick = Div;
+        function equal() {
+            var input = document.getElementById("input");
+            var number = document.getElementById("number");
+
+            switch (Operator) {
+                case "+":
+                    temp = input.value.split("+");
+                    number.innerHTML = parseFloat(temp[0]) + parseFloat(temp[1]);
+                    break;
+                case "-":
+                    temp = input.value.split("-");
+                    number.innerHTML = parseFloat(temp[0]) - parseFloat(temp[1]);
+                    break;
+                case "*":
+                    temp = input.value.split("*");
+                    number.innerHTML = parseFloat(temp[0]) * parseFloat(temp[1]);
+                    break;
+                case "/":
+                    temp = input.value.split("/");
+                    number.innerHTML = parseFloat(temp[0]) / parseFloat(temp[1]);
+                    break;
+            }
+
+            input.value = "";
+        }
+        var equal_btn = document.getElementById("equal");
+        equal_btn.onclick = equal;
+
+
+    </script>
+</body>
+
+</html>
