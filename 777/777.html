@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>777</title>
+</head>
+<style>
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .container {
+        width: 1080px;
+    }
+
+    .img-responsive {
+        border: none;
+        transition: all .3s; 
+    }
+
+    .img-responsive.active {
+        border: solid 5px red;
+        box-shadow: 0 0 20px red;
+        transition: all 0s;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="ml-2 mt-2 d-flex justify-content-between">
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num1"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num2"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num3"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num4"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num5"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num6"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num7"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num8"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num9"></div>
+        </div>
+        <div class="ml-2 mt-2 d-flex justify-content-between">
+            <div class="col-1 ">
+                <img src="https://via.placeholder.com/100" class=".img-responsive" id="num22">
+            </div>
+            <div class="col-1 float-right">
+                <img src="https://via.placeholder.com/100?" class=".img-responsive" id="num10">
+            </div>
+        </div>
+
+        <div class="ml-2 mt-2 d-flex justify-content-between">
+            <div class="col-1 ">
+                <img src="https://via.placeholder.com/100" class=".img-responsive" id="num21">
+            </div>
+            <div class="col-1 float-right">
+                <img src="https://via.placeholder.com/100" class=".img-responsive" id="num11">
+            </div>
+
+        </div>
+        <div class="ml-2 mt-2 d-flex justify-content-between">
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num20"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num19"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num18"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num17"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num16"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num15"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num14"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num13"></div>
+            <div class="col-1"><img src="https://via.placeholder.com/100" class=".img-responsive" id="num12"></div>
+        </div>
+        <div>
+            <button type="button" id="gogogo" class="mt-5 btn btn-secondary btn-lg btn-block">go</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        var arr = []
+        var currentBrick = 0;
+        var forwardSteps = 0;
+        function init() {
+
+            var n = 0;
+            while (true) {
+                ++n;
+                var brick = document.getElementById("num" + n);
+
+                if (!brick) {
+                    break;
+                }
+                brick.src = "https://via.placeholder.com/100?text=" + brick.id;
+                arr.push(brick);
+            }
+            document.getElementById("gogogo").onclick = function () {
+                forwardSteps = arr.length * 5 + Math.floor(Math.random() * arr.length);
+                startcount();
+            }
+        }
+        function startcount() {
+            arr[currentBrick].className = "img-responsive";
+            currentBrick++;
+
+
+            if (currentBrick >= arr.length) {
+                currentBrick = 0;
+            }
+
+            arr[currentBrick].className = "img-responsive active";
+
+            if (--forwardSteps > 0) {
+                setTimeout(startcount, 20);
+            }
+        }
+        init();
+
+    </script>
+</body>
+
+</html>

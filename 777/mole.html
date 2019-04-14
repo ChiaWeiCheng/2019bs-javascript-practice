@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>mole</title>
+    <style>
+        body {
+            background-image: url("./images/bg-dirt.png");
+        }
+
+        .game {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+           
+        }
+        .playground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            justify-content: center;
+        }
+        .mm {
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            text-align: center;
+            background-image: url("./images/grass-upper.png");
+            background-repeat: no-repeat;
+            background-size: 120px 60px;
+            background-position: top 0;
+            position: relative;
+        }
+        .mm::before {
+            content: " ";
+            width: 80px;
+            height: 80px;
+            background-image: url("./images/mole.png");
+            background-repeat: no-repeat;
+            background-size: 80px 80px;
+            background-position: top 0;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            transition: all 1s;
+        }
+
+        .mm::after {
+            content: " ";
+            width: 120px;
+            height:120px;
+            background-image: url("./images/grass-lower.png");
+            background-repeat: no-repeat;
+            background-size: 120px 60px;
+            background-position: top 0;
+            position: absolute;
+            bottom: -60px;
+            left: 0px;
+            transition: all 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container game">
+        <div class="playground d-flex align-items-center flex-column">
+            <div class="d-flex">
+                <div class="mm"></div>
+                <div class="mm"></div>
+                <div class="mm"></div>
+            </div>
+            <div class="d-flex">
+                <div class="mm"></div>
+                <div class="mm"></div>
+                <div class="mm"></div>
+            </div>
+            <div class="d-flex">
+                <div class="mm"></div>
+                <div class="mm"></div>
+                <div class="mm"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+</body>
+
+</html>
