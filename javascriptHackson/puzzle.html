@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="stylesheets/style.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <input type="button" value="洗牌" id="enter" />
+        </div>
+        <div id="dvPuzzle"></div>
+        <div>
+            <img src="http://lorempixel.com/output/city-q-g-480-480-3.jpg" alt="">
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            //將位置轉成座標的換算表
+            var posConv = {};
+            var $puzzlenum = 4;
+            //填入16張圖
+            for (var i = 0; i < $puzzlenum * $puzzlenum; i++) {
+
+                $("#dvPuzzle").append("<div class='PicCell' id='Pic" + i + "'><img src='http://lorempixel.com/output/city-q-g-480-480-3.jpg' /></div>");
+                var row = parseInt(i / $puzzlenum);
+                var col = i % $puzzlenum;
+                $("#Pic" + i + " img").css("margin-left", col * -480 / $puzzlenum).css("margin-top", row * -480 / $puzzlenum);
+                //第i個換成第row列第col行
+                $("#Pic0 img").remove();
+                posConv[i] = { row: row, col: col };
+            }
+            function getNearPos(i) {
+                var pool = [];
+                var row = posConv[i].row, col = posConv[i].col;
+                //toCheck用來放入待比對的對象
+                if (row > 0) //上
+                    pool.push((row - 1) * 4 + col);
+                if (row < 4) //下
+                    pool.push((row + 1) * 4 + col);
+                if (col > 0) //左
+                    pool.push(i - 1);
+                if (col < 4) //右
+                    pool.push(i + 1);
+                return pool;
+            }
+            $(".PicCell").click(function () {
+                var cells = $("#dvPuzzle div");
+                var i = cells.index(this);
+                var toCheck = getNearPos(i);
+                while (toCheck.length > 0) {
+                    var j = toCheck.pop();
+                    if (cells.eq(j).attr("id") == "Pic0") {
+                        if (i > j) {
+                            //排序 對調位置讓i=j
+                            var k = j;
+                            j = i;
+                            i = k;
+                        }
+                        var ahead = cells.eq(i);
+                        var behind = cells.eq(j);
+                        var behindPrev = behind.prev();
+                        if (Math.abs(i - j) == 1)
+                            behind.after(ahead);
+                        else //上下對調
+                        {
+                            ahead.after(behind);
+                            behindPrev.after(ahead);
+                        }
+                        break;
+                    }
+                }
+            });
+            $("#enter").click(function () {
+                for (var i = 0; i < 500; i++) {
+                    var cells = $("#dvPuzzle div");
+                    //找出空格所在位置，並取得其相鄰圖塊
+                    var toMove = getNearPos(cells.index($("#Pic0")[0]));
+                    cells.eq(toMove[ //由空格的相鄰圖塊擇一挪動
+                        parseInt(Math.random() * toMove.length)
+                    ]).click();
+                }
+            });
+        });
+
+
+
+    </script>
+</body>
+
+</html>

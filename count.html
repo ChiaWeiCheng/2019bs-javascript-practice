@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="now"></ul>
+
+    <script>
+        var output = document.createElement("li");
+        var counttime = 0;
+        var count1=setInterval(function () {
+            counttime++;
+            console.log(counttime);
+            if (counttime == 5) {
+                alert("時間到!!");
+                clearInterval(count1);
+            }
+            output.innerHTML(counttime);
+            $("#now").append(output);
+        }, 1000);
+
+    </script>
+</body>
+
+</html>
