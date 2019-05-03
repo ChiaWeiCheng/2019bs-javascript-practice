@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MemoryGame</title>
+    <style>
+        .game {
+            position: absolute;
+            top: 15%;
+            left: 25%;
+        }
+
+        .container {
+            width: 1080px;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container game">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            var cardArea = $(".game");
+            var cardNum = 8; /*要產生幾張卡片*/
+            var rowNum = 5; /*一排要放幾張卡片*/
+            for (i = 1; i <= cardNum; i++) { /*如果i小於要產生的卡片數量，則一直執行以下之程式，產生數量完整的卡片*/
+
+                var aCard = $("<div class='card' id=c" + i + ">"); /*定義卡片是div的DOM*/
+                cardArea.append(aCard) /*產生位置，放入此卡片*/
+                aCard.css({ /*設定此卡片外觀*/
+                    "display": "inline-block",
+                    "width": 250 + "px",
+                    "height": 100 + "px",
+                    "background": "#555",
+                    "border": "1px solid #fff",
+                    "box-sizing": "border-box"
+                });
+                aCard.css({ /*設定此卡片高度，為了讓卡片高度夠隨著寬度固定比例變化，因此等寬度全部寫完後，才執行此高度運算*/
+                    "height": aCard.width() * 1.1
+                });
+            };
+            var cardBack = "#555";
+            var cardData = ["red", "blue", "green", "purple",
+                "red", "blue", "green", "purple"]
+
+            var numberList = [];//抽過的數字
+            var cardList = [];
+            //把每2張格  存入1張牌
+            for (var i = 0; i < 8; i++) {
+
+                if (numberList.length < 8) {
+                    //範圍內 隨機挑一個
+                    var $rand = Math.floor(Math.random() * 8);
+                    //如果被抽過的陣列 裡面沒有這個值  表示還沒抽過
+                    //重複 就重抽
+                    while (numberList.indexOf($rand) != -1) {
+                        $rand = Math.floor(Math.random() * 8);
+                    }
+                    numberList.push($rand);
+                    //    console.log($rand)
+                    cardList.push(cardData[$rand]);
+                    //   console.log(cardData[$rand])
+                }
+            }
+            var indextemp = [];
+            var suittemp = [];
+            var count = 0;
+            var total = 0;
+            $(".card").click(function () {
+                var $cardDiv = $(".card");
+                var $divIndex = $cardDiv.index(this)
+                $("#c" + ($divIndex + 1)).css({
+                    "background": cardList[$divIndex]
+                })
+                indextemp.push($divIndex);
+                suittemp.push(cardList[$divIndex]);
+                count++;
+                if (indextemp[0] != indextemp[1]) {
+                    if (count == 2) {
+                        if (suittemp[0] == suittemp[1]) {
+                            Hide(indextemp[0] + 1, indextemp[1] + 1)
+                            total++;
+                        }
+                        else {
+                            ChangeBack(indextemp[0] + 1, indextemp[1] + 1);
+                        }
+                        indextemp = [];
+                        suittemp = [];
+                        count = 0;
+                    }
+                }
+                else {
+                    alert("不得重複點選");
+                    ChangeBack(indextemp[0] + 1, indextemp[1] + 1);
+                    indextemp = [];
+                    suittemp = [];
+                    count = 0;
+                }
+
+                if (total == 4) {
+                    alert("Victory!!");
+                }
+            })
+
+            function Hide(i, j) {
+                setTimeout(function () {
+                    $("#c" + i).css({
+                        "background": "#fff"
+                    });
+                    $("#c" + j).css({
+                        "background": "#fff"
+                    });
+                    $("#c" + i).unbind();
+                    $("#c" + j).unbind();
+                }, 800);
+            }
+            function ChangeBack(i, j) {
+                setTimeout(function () {
+                    $("#c" + i).css({
+                        "background": "#555"
+                    });
+                    $("#c" + j).css({
+                        "background": "#555"
+                    });
+                }, 800);
+            }
+            function Back() {
+                for (var i = 1; i <= 8; i++) {
+                    $("#c" + i).css({
+                        "background": "#555"
+                    })
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

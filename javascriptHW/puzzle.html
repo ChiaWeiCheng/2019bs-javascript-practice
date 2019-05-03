@@ -37,9 +37,9 @@
                 var col = i % $puzzlenum;
                 $("#Pic" + i + " img").css("margin-left", col * -480 / $puzzlenum).css("margin-top", row * -480 / $puzzlenum);
                 //第i個換成第row列第col行
-                $("#Pic0 img").remove();
                 posConv[i] = { row: row, col: col };
             }
+            $("#Pic0 img").remove();
             function getNearPos(i) {
                 var pool = [];
                 var row = posConv[i].row, col = posConv[i].col;
@@ -58,6 +58,7 @@
                 var cells = $("#dvPuzzle div");
                 var i = cells.index(this);
                 var toCheck = getNearPos(i);
+
                 while (toCheck.length > 0) {
                     var j = toCheck.pop();
                     if (cells.eq(j).attr("id") == "Pic0") {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 1080px;
+            margin: 0 auto;
+        }
+
+        .top-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            height: 20px;
+            margin: 0 10px;
+        }
+
+        .pumpNum {
+            border: 5px black solid;
+            margin: 20px auto;
+            width: 500px;
+            height: 500px;
+            padding: 30px;
+        }
+
+        button {
+            margin: 0 auto;
+            width: 45%;
+            height: 50px;
+        }
+        .btn{
+            display: flex;
+            margin: 0;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-text">
+            <h4>最小數值:</h4>
+            <input type="text" id="min">
+            <h4>最大數值:</h4>
+            <input type="text" id="max">
+        </div>
+        <div class="pumpNum">
+        </div>
+        <div class="btn">
+            <button id="gogo">抽爆</button>
+            <button id="reset">重設</button>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            var Numlist = new Array;
+            var NowNumlist = new Array;
+            $('#gogo').click(function () {
+                var min = parseInt($("#min").val());;
+                var max = parseInt($("#max").val());;
+                for (var i = 0; i <= max - min; i++) {
+                    Numlist.push(min + i);
+                }
+                randomNow = Math.floor(Math.random() * (max - min + 1)) + min;
+                while (NowNumlist.indexOf(randomNow) != -1) {
+                    randomNow = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                NowNumlist.push(randomNow);
+            })
+
+            
+        })
+    </script>
+</body>
+
+</html>
