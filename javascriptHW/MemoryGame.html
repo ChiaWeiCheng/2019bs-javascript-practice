@@ -31,13 +31,13 @@
     <script>
         $(function () {
             var cardArea = $(".game");
-            var cardNum = 8; /*要產生幾張卡片*/
-            var rowNum = 5; /*一排要放幾張卡片*/
-            for (i = 1; i <= cardNum; i++) { /*如果i小於要產生的卡片數量，則一直執行以下之程式，產生數量完整的卡片*/
+            var cardNum = 8;
+            var rowNum = 5; 
+            for (i = 1; i <= cardNum; i++) { 
 
-                var aCard = $("<div class='card' id=c" + i + ">"); /*定義卡片是div的DOM*/
-                cardArea.append(aCard) /*產生位置，放入此卡片*/
-                aCard.css({ /*設定此卡片外觀*/
+                var aCard = $("<div class='card' id=c" + i + ">"); 
+                cardArea.append(aCard) 
+                aCard.css({ 
                     "display": "inline-block",
                     "width": 250 + "px",
                     "height": 100 + "px",
@@ -45,7 +45,7 @@
                     "border": "1px solid #fff",
                     "box-sizing": "border-box"
                 });
-                aCard.css({ /*設定此卡片高度，為了讓卡片高度夠隨著寬度固定比例變化，因此等寬度全部寫完後，才執行此高度運算*/
+                aCard.css({ 
                     "height": aCard.width() * 1.1
                 });
             };
@@ -53,23 +53,17 @@
             var cardData = ["red", "blue", "green", "purple",
                 "red", "blue", "green", "purple"]
 
-            var numberList = [];//抽過的數字
+            var numberList = [];
             var cardList = [];
-            //把每2張格  存入1張牌
             for (var i = 0; i < 8; i++) {
 
-                if (numberList.length < 8) {
-                    //範圍內 隨機挑一個
+                if (numberList.length < 8) {//抽出8個數字
                     var $rand = Math.floor(Math.random() * 8);
-                    //如果被抽過的陣列 裡面沒有這個值  表示還沒抽過
-                    //重複 就重抽
-                    while (numberList.indexOf($rand) != -1) {
+                    while (numberList.indexOf($rand) != -1) {//有重複重抽
                         $rand = Math.floor(Math.random() * 8);
                     }
                     numberList.push($rand);
-                    //    console.log($rand)
                     cardList.push(cardData[$rand]);
-                    //   console.log(cardData[$rand])
                 }
             }
             var indextemp = [];
@@ -111,7 +105,6 @@
                     alert("Victory!!");
                 }
             })
-
             function Hide(i, j) {
                 setTimeout(function () {
                     $("#c" + i).css({
