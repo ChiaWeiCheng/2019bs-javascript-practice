@@ -36,7 +36,8 @@
             width: 45%;
             height: 50px;
         }
-        .btn{
+
+        .btn {
             display: flex;
             margin: 0;
             justify-content: center;
@@ -53,6 +54,9 @@
             <input type="text" id="max">
         </div>
         <div class="pumpNum">
+            <div class="number"></div>
+            <div class="number"></div>
+            <div class="number"></div>
         </div>
         <div class="btn">
             <button id="gogo">抽爆</button>
@@ -78,9 +82,29 @@
                     randomNow = Math.floor(Math.random() * (max - min + 1)) + min;
                 }
                 NowNumlist.push(randomNow);
+
+                roll();
             })
 
-            
+
+            var c = 0, j = 0;
+            function roll() {
+                var z = setInterval(function () {
+                    $($('.number')[c % 3]).text(NowNumlist[j]);
+                    $($('.number')[c % 3]).css("left", "420px");
+                    $($('.number')[c % 3]).animate({ left: "-420px" }, 800, "linear");
+                    c++;
+                    j++;
+                    if (j == 9) {
+                        $($('.number')[c % 3]).text(rList[9]);
+                        $($('.number')[c % 3]).css("left", "420px");
+                        $($('.number')[c % 3]).animate({ left: "0px" }, 1600, "linear");
+                        clearInterval(z);
+                        setTimeout(function () { $("#hav")[0].innerHTML = "抽過 : " + tarr.join(","); }, 2300);
+                    }
+                }, 900);
+            };
+
         })
     </script>
 </body>
